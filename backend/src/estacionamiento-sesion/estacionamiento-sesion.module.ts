@@ -3,10 +3,9 @@ import { EstacionamientoSesionService } from './estacionamiento-sesion.service';
 import { EstacionamientoSesionController } from './estacionamiento-sesion.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EstacionamientoSesion } from './entities/estacionamiento-sesion.entity';
-import { Vehiculo } from 'src/vehiculos/entities/vehiculo.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([EstacionamientoSesion,Vehiculo])],
+  imports: [TypeOrmModule.forFeature([EstacionamientoSesion])],
   controllers: [EstacionamientoSesionController],
   providers: [EstacionamientoSesionService],
 })

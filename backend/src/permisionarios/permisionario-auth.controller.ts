@@ -26,63 +26,17 @@ export class PermisionarioAuthController {
 
   @Get('cuadra')
   getCuadra() {
-    return {
-      zona: {
-        nombre: 'Zona Centro',
-        cuadras: 'Caseros 100-500 · Mitre 200-400',
-      },
-      recaudacion_hoy: 0,
-      tickets_hoy: 0,
-      total_activos: 0,
-      vehiculos_activos: [],
-    };
+    return this.authService.getCuadra();
   }
 
   @Get('historial')
   getHistorial() {
-    return {
-      liquidacion: {
-        total_recaudado: 0,
-        monto_permisionario: 0,
-        efectivo_recibido: 0,
-        digital_recibido: 0,
-        debe_entregar: 0,
-      },
-      resumen: {
-        total_tickets: 0,
-      },
-      tickets: [],
-    };
+    return this.authService.getHistorial();
   }
 
   @Post('ticket/emitir')
   @HttpCode(HttpStatus.CREATED)
   emitirTicket(@Body() body: { patente: string; tipo_vehiculo: string; horas: number; metodo_pago: string }) {
-    const tarifas: Record<string, number> = { auto: 700, moto: 300 };
-    const tarifa = tarifas[body.tipo_vehiculo] ?? 700;
-    const montoOriginal = tarifa * body.horas;
-    const esDigital = body.metodo_pago === 'digital';
-    const descuento = esDigital ? Math.round(montoOriginal * 0.20) : 0;
-    const montoTotal = montoOriginal - descuento;
-    const ahora = new Date();
-    const horaFin = new Date(ahora.getTime() + body.horas * 60 * 60 * 1000);
-
-    return {
-      ticket: {
-        id: `TKT-${Date.now()}`,
-        codigo: `EST-${Date.now().toString().slice(-8)}`,
-        patente: body.patente.toUpperCase(),
-        tipo_vehiculo: body.tipo_vehiculo,
-        horas: body.horas,
-        tarifa_hora: tarifa,
-        monto_original: montoOriginal,
-        descuento,
-        monto_total: montoTotal,
-        metodo_pago: body.metodo_pago,
-        hora_inicio: ahora.toISOString(),
-        hora_fin: horaFin.toISOString(),
-        estado: 'activo',
-      },
-    };
+    return this.authService.emitirTicket(body, 'demo');
   }
 }

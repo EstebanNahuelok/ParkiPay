@@ -1,10 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateEstacionamientoSesionDto } from './dto/create-estacionamiento-sesion.dto';
 import { UpdateEstacionamientoSesionDto } from './dto/update-estacionamiento-sesion.dto';
 import { Repository } from 'typeorm';
 import { EstacionamientoSesion } from './entities/estacionamiento-sesion.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TipoVehiculo, Vehiculo } from 'src/vehiculos/entities/vehiculo.entity';
 
 @Injectable()
 export class EstacionamientoSesionService {
@@ -12,11 +11,13 @@ export class EstacionamientoSesionService {
   constructor(
     @InjectRepository(EstacionamientoSesion)
     private readonly estacionamientoSesionRepository: Repository<EstacionamientoSesion>,
-    @InjectRepository(Vehiculo)
-    private readonly vehiculoRepository: Repository<Vehiculo>
   ){}
-  create(createEstacionamientoSesionDto: CreateEstacionamientoSesionDto) {
-    return this.estacionamientoSesionRepository.save(createEstacionamientoSesionDto)
+
+  async create(dto: CreateEstacionamientoSesionDto) {
+    const sesion = this.estacionamientoSesionRepository.create({
+      horasDeseadas: dto.horas,
+    });
+    return this.estacionamientoSesionRepository.save(sesion);
   }
 
   findAll() {
@@ -33,18 +34,6 @@ export class EstacionamientoSesionService {
 
   remove(id: number) {
     return `This action removes a #${id} estacionamientoSesion`;
-  }
-
-  async registarSesionEstacionamiento(createEstacionamientoSesionDto: CreateEstacionamientoSesionDto){
-    const {pantenteVehiculo}=createEstacionamientoSesionDto
-    const vehiculo=this.vehiculoRepository.findOneBy({patente:pantenteVehiculo})
-    if(!vehiculo){
-      await this.vehiculoRepository.create({patente:pantenteVehiculo,tipoVehiculo:TipoVehiculo.AUTO})
-
-    }
-    return await this.estacionamientoSesionRepository.save(createEstacionamientoSesionDto)
-
-    
   }
 
 }
