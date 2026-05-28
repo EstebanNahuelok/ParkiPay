@@ -7,7 +7,7 @@ export default function NotFound() {
             <p className="text-lg text-gray-400">Pagina no encontrada</p>
             <Link
                 to="/"
-                className="bg-gradient-to-r from-[#FF6B2C] to-[#e65a20] text-white font-semibold px-6 py-3 rounded-lg text-sm transition-all"
+                className="bg-gradient-to-r from-[#1D9E75] to-[#15803d] text-white font-semibold px-6 py-3 rounded-lg text-sm transition-all"
             >
                 Volver al inicio
             </Link>
