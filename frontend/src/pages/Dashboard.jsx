@@ -25,13 +25,13 @@ export default function Dashboard() {
       <header className="bg-[#0C1017] border-b border-gray-800 px-4 py-3 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
             <div>
-              <h1 className="text-lg font-bold">ParkiPay</h1>
+              <h1 className="text-lg font-bold">SEM Salta</h1>
               <p className="text-xs text-gray-500">Permisionario</p>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function Dashboard() {
           <button
             onClick={() => setActiveTab(TABS.CUADRA)}
             className={`flex-1 py-4 flex flex-col items-center gap-1 transition-colors ${
-              activeTab === TABS.CUADRA ? 'text-orange-500' : 'text-gray-500 hover:text-gray-300'
+              activeTab === TABS.CUADRA ? 'text-brand' : 'text-gray-500 hover:text-gray-300'
             }`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@ export default function Dashboard() {
           <button
             onClick={() => setActiveTab(TABS.COBRAR)}
             className={`flex-1 py-4 flex flex-col items-center gap-1 transition-colors ${
-              activeTab === TABS.COBRAR ? 'text-orange-500' : 'text-gray-500 hover:text-gray-300'
+              activeTab === TABS.COBRAR ? 'text-brand' : 'text-gray-500 hover:text-gray-300'
             }`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@ export default function Dashboard() {
           <button
             onClick={() => setActiveTab(TABS.HISTORIAL)}
             className={`flex-1 py-4 flex flex-col items-center gap-1 transition-colors ${
-              activeTab === TABS.HISTORIAL ? 'text-orange-500' : 'text-gray-500 hover:text-gray-300'
+              activeTab === TABS.HISTORIAL ? 'text-brand' : 'text-gray-500 hover:text-gray-300'
             }`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ function MiCuadra({ onCobrar }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <svg className="w-8 h-8 animate-spin text-orange-500" fill="none" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 animate-spin text-brand" fill="none" viewBox="0 0 24 24">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
         </svg>
@@ -144,7 +144,7 @@ function MiCuadra({ onCobrar }) {
     return (
       <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-center">
         <p className="text-red-400">{error}</p>
-        <button onClick={loadData} className="mt-3 text-sm text-orange-500 hover:underline">
+        <button onClick={loadData} className="mt-3 text-sm text-brand hover:underline">
           Reintentar
         </button>
       </div>
@@ -155,15 +155,15 @@ function MiCuadra({ onCobrar }) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-[#1a0e35] to-[#0C1017] border border-gray-800 rounded-xl p-6">
+      <div className="bg-gradient-to-br from-[#0d1117] to-[#0C1017] border border-gray-800 rounded-xl p-6">
         <div className="flex items-start justify-between mb-4">
           <div>
             <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">Zona Asignada</p>
             <h2 className="text-2xl font-bold">{data.zona.nombre}</h2>
             <p className="text-sm text-gray-400 mt-1">{data.zona.cuadras}</p>
           </div>
-          <div className="w-12 h-12 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
-            <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-12 h-12 rounded-lg bg-brand/10 border border-brand/20 flex items-center justify-center">
+            <svg className="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
@@ -184,7 +184,7 @@ function MiCuadra({ onCobrar }) {
       <div className="bg-[#0C1017] border border-gray-800 rounded-xl p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold">Vehículos Activos</h3>
-          <span className="px-3 py-1 bg-orange-500/10 border border-orange-500/20 rounded-full text-sm font-semibold text-orange-500">
+          <span className="px-3 py-1 bg-brand/10 border border-brand/20 rounded-full text-sm font-semibold text-brand">
             {data.total_activos} activos
           </span>
         </div>
@@ -201,9 +201,9 @@ function MiCuadra({ onCobrar }) {
               <div key={v.id} className="bg-[#111622] border border-gray-800 rounded-lg p-3 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                    v.tipo_vehiculo === 'auto' ? 'bg-blue-500/10 border border-blue-500/20' : 'bg-purple-500/10 border border-purple-500/20'
+                    v.tipo_vehiculo === 'auto' ? 'bg-blue-500/10 border border-blue-500/20' : 'bg-gray-500/10 border border-brand/20'
                   }`}>
-                    <svg className={`w-5 h-5 ${v.tipo_vehiculo === 'auto' ? 'text-blue-500' : 'text-purple-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className={`w-5 h-5 ${v.tipo_vehiculo === 'auto' ? 'text-blue-500' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       {v.tipo_vehiculo === 'auto' ? (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h8m-8 4h8m-4 4v4m-4-4h8a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2 2v6a2 2 0 002 2z" />
                       ) : (
@@ -230,7 +230,7 @@ function MiCuadra({ onCobrar }) {
 
       <button
         onClick={onCobrar}
-        className="fixed bottom-24 right-4 w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-full shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-transform z-40"
+        className="fixed bottom-24 right-4 w-16 h-16 bg-gradient-to-br from-brand to-brand-dark rounded-full shadow-lg shadow-brand/30 flex items-center justify-center hover:scale-110 transition-transform z-40"
       >
         <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -506,7 +506,7 @@ function Cobrar({ onVolver }) {
 
           <button
             onClick={onVolver}
-            className="w-full bg-gradient-to-r from-[#FF6B2C] to-[#e65a20] text-white font-bold py-3 rounded-lg"
+            className="w-full bg-gradient-to-r from-[#1D9E75] to-[#15803d] text-white font-bold py-3 rounded-lg"
           >
             Volver a Mi Cuadra
           </button>
@@ -533,7 +533,7 @@ function Cobrar({ onVolver }) {
 
       <div className="flex gap-1 mb-6">
         {Array.from({ length: maxSteps }, (_, i) => i + 1).map((s) => (
-          <div key={s} className={`h-1 flex-1 rounded ${s <= currentStep ? 'bg-orange-500' : 'bg-gray-800'}`} />
+          <div key={s} className={`h-1 flex-1 rounded ${s <= currentStep ? 'bg-brand' : 'bg-gray-800'}`} />
         ))}
       </div>
 
@@ -552,7 +552,7 @@ function Cobrar({ onVolver }) {
               value={patente}
               onChange={handlePatenteChange}
               placeholder="ABC123 o AB123CD"
-              className="w-full bg-[#111622] border border-gray-800 rounded-lg px-4 py-4 text-2xl font-bold text-center tracking-widest text-gray-200 placeholder-gray-600 focus:outline-none focus:border-orange-500"
+              className="w-full bg-[#111622] border border-gray-800 rounded-lg px-4 py-4 text-2xl font-bold text-center tracking-widest text-gray-200 placeholder-gray-600 focus:outline-none focus:border-brand"
               autoFocus
             />
             <p className="text-xs text-gray-500 mt-2">Formato: AAA123 (viejo) o AA123AA (nuevo)</p>
@@ -567,7 +567,7 @@ function Cobrar({ onVolver }) {
                 onClick={() => setTipoVehiculo('auto')}
                 className={`p-6 rounded-lg border-2 transition-all ${
                   tipoVehiculo === 'auto'
-                    ? 'border-orange-500 bg-orange-500/10'
+                    ? 'border-brand bg-brand/10'
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
@@ -581,11 +581,11 @@ function Cobrar({ onVolver }) {
                 onClick={() => setTipoVehiculo('moto')}
                 className={`p-6 rounded-lg border-2 transition-all ${
                   tipoVehiculo === 'moto'
-                    ? 'border-orange-500 bg-orange-500/10'
+                    ? 'border-brand bg-brand/10'
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
-                <svg className="w-12 h-12 mx-auto mb-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 h-12 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
                 <p className="font-bold">Moto</p>
@@ -639,7 +639,7 @@ function Cobrar({ onVolver }) {
                 onClick={() => setMetodoPago('efectivo')}
                 className={`w-full p-4 rounded-lg border-2 transition-all flex items-center gap-4 ${
                   metodoPago === 'efectivo'
-                    ? 'border-orange-500 bg-orange-500/10'
+                    ? 'border-brand bg-brand/10'
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
@@ -660,7 +660,7 @@ function Cobrar({ onVolver }) {
                 onClick={() => setMetodoPago('digital')}
                 className={`w-full p-4 rounded-lg border-2 transition-all flex items-center gap-4 ${
                   metodoPago === 'digital'
-                    ? 'border-orange-500 bg-orange-500/10'
+                    ? 'border-brand bg-brand/10'
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
@@ -733,12 +733,12 @@ function Cobrar({ onVolver }) {
                 onClick={() => setSubMetodoDigital('qr_interoperable')}
                 className={`w-full p-4 rounded-lg border-2 transition-all flex items-center gap-4 ${
                   subMetodoDigital === 'qr_interoperable'
-                    ? 'border-purple-500 bg-purple-500/10'
+                    ? 'border-brand bg-gray-500/10'
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
-                <div className="w-12 h-12 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-12 h-12 rounded-lg bg-gray-500/10 border border-brand/20 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                   </svg>
                 </div>
@@ -765,7 +765,7 @@ function Cobrar({ onVolver }) {
               </div>
               <div className="border-t border-gray-800 pt-3">
                 <p className="text-gray-500 text-sm mb-1">Alias</p>
-                <p className="text-lg font-bold text-orange-500 font-mono">{pagoData.datos_transferencia.alias}</p>
+                <p className="text-lg font-bold text-brand font-mono">{pagoData.datos_transferencia.alias}</p>
               </div>
               <div>
                 <p className="text-gray-500 text-sm mb-1">CBU</p>
@@ -791,7 +791,7 @@ function Cobrar({ onVolver }) {
                 value={ultimos4}
                 onChange={(e) => { setUltimos4(e.target.value.replace(/\D/g, '').slice(0, 4)); setError(''); }}
                 placeholder="0000"
-                className="w-full bg-[#111622] border border-gray-800 rounded-lg px-4 py-4 text-2xl font-bold text-center tracking-widest text-gray-200 placeholder-gray-600 focus:outline-none focus:border-orange-500"
+                className="w-full bg-[#111622] border border-gray-800 rounded-lg px-4 py-4 text-2xl font-bold text-center tracking-widest text-gray-200 placeholder-gray-600 focus:outline-none focus:border-brand"
               />
             </div>
           </div>
@@ -799,7 +799,7 @@ function Cobrar({ onVolver }) {
 
         {step === 7 && polling && (
           <div className="text-center py-2">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-orange-500/70 font-bold mb-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-brand/70 font-bold mb-4">
               PAGO DIGITAL
             </p>
 
@@ -831,7 +831,7 @@ function Cobrar({ onVolver }) {
             <h3 className="text-lg font-bold mb-2">Esperando confirmación del pago...</h3>
 
             <div className="flex items-center justify-center gap-2 text-sm text-gray-500 mb-6">
-              <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
+              <div className="w-2 h-2 bg-brand rounded-full animate-pulse" />
               Verificando cada 3 segundos activa...
             </div>
           </div>
@@ -841,7 +841,7 @@ function Cobrar({ onVolver }) {
           <button
             onClick={handleSiguiente}
             disabled={loading}
-            className="w-full bg-gradient-to-r from-[#FF6B2C] to-[#e65a20] hover:from-[#ff7a42] hover:to-[#FF6B2C] disabled:from-gray-700 disabled:to-gray-700 text-white font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2"
+            className="w-full bg-gradient-to-r from-[#1D9E75] to-[#15803d] hover:from-[#22c55e] hover:to-[#1D9E75] disabled:from-gray-700 disabled:to-gray-700 text-white font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2"
           >
             {loading ? (
               <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -926,7 +926,7 @@ function Historial() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <svg className="w-8 h-8 animate-spin text-orange-500" fill="none" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 animate-spin text-brand" fill="none" viewBox="0 0 24 24">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
         </svg>
@@ -938,7 +938,7 @@ function Historial() {
     return (
       <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-center">
         <p className="text-red-400">{error}</p>
-        <button onClick={loadData} className="mt-3 text-sm text-orange-500 hover:underline">
+        <button onClick={loadData} className="mt-3 text-sm text-brand hover:underline">
           Reintentar
         </button>
       </div>
@@ -953,7 +953,7 @@ function Historial() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-[#1a0e35] to-[#0C1017] border border-gray-800 rounded-xl p-6">
+      <div className="bg-gradient-to-br from-[#0d1117] to-[#0C1017] border border-gray-800 rounded-xl p-6">
         <h2 className="text-xl font-bold mb-4">Liquidación del Día</h2>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="bg-[#111622] rounded-lg p-4">
@@ -964,7 +964,7 @@ function Historial() {
           </div>
           <div className="bg-[#111622] rounded-lg p-4">
             <p className="text-xs text-gray-500 mb-1">Tu Ganancia</p>
-            <p className="text-2xl font-bold text-orange-500">
+            <p className="text-2xl font-bold text-brand">
               ${data.liquidacion.monto_permisionario.toLocaleString('es-AR')}
             </p>
           </div>
@@ -998,7 +998,7 @@ function Historial() {
             onClick={() => setFiltro('todos')}
             className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
               filtro === 'todos'
-                ? 'bg-orange-500 text-white'
+                ? 'bg-brand text-white'
                 : 'bg-[#111622] text-gray-400 border border-gray-800 hover:border-gray-700'
             }`}
           >

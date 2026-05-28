@@ -6,19 +6,19 @@ export default function Home() {
       <header className="border-b border-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center shadow-lg shadow-orange-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center shadow-lg shadow-brand/20">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
             <div>
-              <span className="text-xl font-bold">ParkiPay</span>
+              <span className="text-xl font-bold">SEM Salta</span>
               <p className="text-[10px] uppercase tracking-wider text-gray-500">Municipalidad de Salta</p>
             </div>
           </div>
           <Link
             to="/login"
-            className="hidden sm:inline-flex bg-gradient-to-r from-[#FF6B2C] to-[#e65a20] hover:from-[#ff7a42] hover:to-[#FF6B2C] text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-all shadow-lg shadow-orange-500/20"
+            className="hidden sm:inline-flex bg-gradient-to-r from-[#1D9E75] to-[#15803d] hover:from-[#22c55e] hover:to-[#1D9E75] text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-all shadow-lg shadow-brand/20"
           >
             Iniciar Sesion
           </Link>
@@ -27,18 +27,18 @@ export default function Home() {
 
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gray-500/10 rounded-full blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <span className="inline-block px-4 py-1.5 bg-orange-500/10 border border-orange-500/20 rounded-full text-orange-500 text-xs font-semibold uppercase tracking-wider mb-6">
+            <span className="inline-block px-4 py-1.5 bg-brand/10 border border-brand/20 rounded-full text-brand text-xs font-semibold uppercase tracking-wider mb-6">
               Estacionamiento Medido &middot; Salta
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
               Estacionamiento inteligente{' '}
-              <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
                 al alcance de tu mano
               </span>
             </h1>
@@ -50,7 +50,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/login"
-                className="w-full sm:w-auto bg-gradient-to-r from-[#FF6B2C] to-[#e65a20] hover:from-[#ff7a42] hover:to-[#FF6B2C] text-white font-bold px-8 py-4 rounded-xl text-base transition-all shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto bg-gradient-to-r from-[#1D9E75] to-[#15803d] hover:from-[#22c55e] hover:to-[#1D9E75] text-white font-bold px-8 py-4 rounded-xl text-base transition-all shadow-xl shadow-brand/25 hover:shadow-brand/40 flex items-center justify-center gap-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -72,8 +72,8 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             <div className="bg-[#0C1017] border border-gray-800 rounded-2xl p-6 sm:p-8 hover:border-gray-700 transition-colors group">
-              <div className="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -112,7 +112,7 @@ export default function Home() {
 
       <section className="border-t border-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="bg-gradient-to-br from-[#1a0e35] to-[#0C1017] border border-gray-800 rounded-2xl p-8 sm:p-12 text-center">
+          <div className="bg-gradient-to-br from-[#0d1117] to-[#0C1017] border border-gray-800 rounded-2xl p-8 sm:p-12 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">
               &iquest;Sos permisionario?
             </h2>
@@ -121,7 +121,7 @@ export default function Home() {
             </p>
             <Link
               to="/login"
-              className="inline-flex bg-gradient-to-r from-[#FF6B2C] to-[#e65a20] hover:from-[#ff7a42] hover:to-[#FF6B2C] text-white font-bold px-10 py-4 rounded-xl text-base transition-all shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 items-center gap-2"
+              className="inline-flex bg-gradient-to-r from-[#1D9E75] to-[#15803d] hover:from-[#22c55e] hover:to-[#1D9E75] text-white font-bold px-10 py-4 rounded-xl text-base transition-all shadow-xl shadow-brand/25 hover:shadow-brand/40 items-center gap-2"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -135,7 +135,7 @@ export default function Home() {
       <footer className="border-t border-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
           <p className="text-xs text-gray-600">
-            &copy; 2026 ParkiPay &middot; Municipalidad de Salta &middot; Sistema de Estacionamiento Medido
+            &copy; 2026 SEM Salta &middot; Municipalidad de Salta &middot; Sistema de Estacionamiento Medido
           </p>
         </div>
       </footer>

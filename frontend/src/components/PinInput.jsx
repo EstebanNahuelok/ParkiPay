@@ -34,7 +34,7 @@ export default function PinInput({ value, onChange, length = 4, showPin, label, 
             value={digit}
             onChange={(e) => handleChange(i, e.target.value)}
             onKeyDown={(e) => handleKeyDown(i, e)}
-            className="w-14 h-14 bg-[#111622] border border-gray-800 rounded-lg text-center text-xl font-bold text-gray-200 placeholder-gray-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/30 transition-all"
+            className="w-14 h-14 bg-[#111622] border border-gray-800 rounded-lg text-center text-xl font-bold text-gray-200 placeholder-gray-600 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/30 transition-all"
             placeholder="·"
             autoComplete="off"
           />
