@@ -7,10 +7,10 @@ export default function Escanear() {
   const navigate = useNavigate()
   const { updateParkingData } = useParking()
   const scannerRef = useRef(null)
+  const scannerStartedRef = useRef(false)
   const [showModal, setShowModal] = useState(false)
   const [patenteInput, setPatenteInput] = useState('')
   const [patenteError, setPatenteError] = useState(false)
-  const [scannerStarted, setScannerStarted] = useState(false)
   const [scanError, setScanError] = useState(false)
 
   useEffect(() => {
@@ -23,13 +23,14 @@ export default function Escanear() {
           { facingMode: 'environment' },
           { fps: 10, qrbox: { width: 240, height: 240 } },
           (decodedText) => {
+            scannerStartedRef.current = false
             qr.stop().catch(() => {})
             updateParkingData({ patente: decodedText.toUpperCase(), cuadra: 'Alberdi y Mitre' })
             navigate('/confirmar')
           },
           () => {}
         )
-        setScannerStarted(true)
+        scannerStartedRef.current = true
       } catch {
         setScanError(true)
       }
@@ -38,7 +39,8 @@ export default function Escanear() {
     startScanner()
 
     return () => {
-      if (scannerRef.current) {
+      if (scannerRef.current && scannerStartedRef.current) {
+        scannerStartedRef.current = false
         scannerRef.current.stop().catch(() => {})
       }
     }
@@ -50,7 +52,8 @@ export default function Escanear() {
       return
     }
     setPatenteError(false)
-    if (scannerRef.current && scannerStarted) {
+    if (scannerRef.current && scannerStartedRef.current) {
+      scannerStartedRef.current = false
       scannerRef.current.stop().catch(() => {})
     }
     updateParkingData({ patente: patenteInput.trim().toUpperCase(), cuadra: 'Alberdi y Mitre' })

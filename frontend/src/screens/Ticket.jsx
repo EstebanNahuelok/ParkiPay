@@ -11,7 +11,7 @@ function getValidoHasta(horas) {
 export default function Ticket() {
   const navigate = useNavigate()
   const { parkingData, getTotalConDescuento } = useParking()
-  const { patente, vehiculo, horas, cuadra } = parkingData
+  const { patente, vehiculo, horas, cuadra, sesionId } = parkingData
 
   const validoHasta = getValidoHasta(horas)
   const monto = getTotalConDescuento()
@@ -106,6 +106,15 @@ export default function Ticket() {
 
         {/* Info rows */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {sesionId && (
+            <InfoRow
+              icon={<TicketIcon />}
+              label="N° Ticket"
+              value={`#${sesionId}`}
+              valueColor="#9ca3af"
+              isLast={false}
+            />
+          )}
           <InfoRow
             icon={<LocationIcon />}
             label="Cuadra"
@@ -218,6 +227,14 @@ function InfoRow({ icon, label, value, valueColor, valueTag, isLast }) {
         <span style={{ color: valueColor || '#fff', fontSize: 14, fontWeight: '600' }}>{value}</span>
       )}
     </div>
+  )
+}
+
+function TicketIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z" />
+    </svg>
   )
 }
 

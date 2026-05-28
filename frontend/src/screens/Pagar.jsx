@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useParking } from '../context/ParkingContext'
+import { crearSesionEstacionamiento } from '../api/index'
 
 const METODOS = [
   {
@@ -22,10 +24,32 @@ const METODOS = [
 export default function Pagar() {
   const navigate = useNavigate()
   const { parkingData, updateParkingData, getTotalConDescuento, getTotal } = useParking()
-  const { horas, cuadra, metodoPago } = parkingData
+  const { patente, vehiculo, horas, cuadra, metodoPago } = parkingData
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const monto = getTotalConDescuento()
   const original = getTotal()
+
+  const handlePagar = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const sesion = await crearSesionEstacionamiento({
+        patente: patente.toUpperCase(),
+        tipoVehiculo: vehiculo.toUpperCase(),
+        horas,
+        monto,
+        metodoPago: metodoPago.toUpperCase(),
+      })
+      updateParkingData({ sesionId: sesion.id ?? sesion._id ?? null })
+      navigate('/ticket')
+    } catch (e) {
+      setError('No se pudo procesar el pago. Intentá de nuevo.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className="flex flex-col" style={{ minHeight: '100vh', backgroundColor: '#0d1117' }}>
@@ -150,29 +174,40 @@ export default function Pagar() {
 
       {/* Bottom CTA */}
       <div style={{ padding: '0 20px 32px', backgroundColor: '#0d1117' }}>
+        {error && (
+          <p style={{ color: '#ef4444', fontSize: 13, textAlign: 'center', marginBottom: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            {error}
+          </p>
+        )}
         <button
-          onClick={() => navigate('/ticket')}
+          onClick={handlePagar}
+          disabled={loading}
           style={{
             width: '100%',
             padding: '16px',
             borderRadius: 14,
             border: 'none',
-            backgroundColor: '#1D9E75',
+            backgroundColor: loading ? '#155e4a' : '#1D9E75',
             color: '#fff',
             fontSize: 17,
             fontWeight: '700',
-            cursor: 'pointer',
+            cursor: loading ? 'not-allowed' : 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: 10,
             marginBottom: 12,
+            opacity: loading ? 0.8 : 1,
+            transition: 'background-color 0.15s, opacity 0.15s',
           }}
         >
-          Pagar ${monto.toLocaleString('es-AR')}
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
+          {loading ? 'Procesando...' : `Pagar $${monto.toLocaleString('es-AR')}`}
+          {!loading && (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          )}
         </button>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, color: '#6b7280', fontSize: 13 }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

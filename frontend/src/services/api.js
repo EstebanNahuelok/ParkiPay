@@ -5,7 +5,7 @@ const apiClient = axios.create({
   headers: { 'Content-Type': 'application/json' },
   timeout: 15000,
 });
-12
+
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('parkipay_token');
   if (token) {
