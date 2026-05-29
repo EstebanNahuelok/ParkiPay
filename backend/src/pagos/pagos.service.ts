@@ -56,7 +56,7 @@ export class PagosService {
           pending: `${frontendUrl}/ticket?pending=true`,
         },
         notification_url: `${backendUrl}/api/pagos/webhook`,
-        // auto_return: 'approved',
+        auto_return: 'approved',
       },
     });
 
