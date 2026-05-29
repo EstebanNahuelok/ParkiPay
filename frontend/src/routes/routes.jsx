@@ -14,6 +14,7 @@ import Escanear from '../screens/Escanear';
 import Confirmar from '../screens/Confirmar';
 import Pagar from '../screens/Pagar';
 import Ticket from '../screens/Ticket';
+import { InicioApp } from '../pages/InicioApp';
 
 function ConductorApp({ children }) {
     return (
@@ -26,7 +27,11 @@ function ConductorApp({ children }) {
 const router = createBrowserRouter([
     // ── Conductor (app de pago del estacionamiento) ──
     {
-        path: '/',
+        path:'/',
+        element:<InicioApp/>
+    },
+    {
+        path: '/escanear',
         element: <ConductorApp><Escanear /></ConductorApp>,
     },
     {

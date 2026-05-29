@@ -1,34 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 import { PagosService } from './pagos.service';
-import { CreatePagoDto } from './dto/create-pago.dto';
-import { UpdatePagoDto } from './dto/update-pago.dto';
+import { CreatePreferenceDto } from './dto/create-preference.dto';
 
 @Controller('pagos')
 export class PagosController {
   constructor(private readonly pagosService: PagosService) {}
 
-  @Post()
-  create(@Body() createPagoDto: CreatePagoDto) {
-    return this.pagosService.create(createPagoDto);
+  // El frontend llama esto para obtener el link de MP
+  @Post('preference')
+  createPreference(@Body() dto: CreatePreferenceDto) {
+    return this.pagosService.createPreference(dto);
   }
 
-  @Get()
-  findAll() {
-    return this.pagosService.findAll();
+  // MP llama esto automáticamente cuando el usuario paga
+  @Post('webhook')
+  @HttpCode(200)
+  handleWebhook(@Body() body: any) {
+    return this.pagosService.handleWebhook(body);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.pagosService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePagoDto: UpdatePagoDto) {
-    return this.pagosService.update(+id, updatePagoDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pagosService.remove(+id);
+    return this.pagosService.findOne(id);
   }
 }

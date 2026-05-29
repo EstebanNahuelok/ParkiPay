@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule.forRoot(),VehiculosModule, PermisionariosModule, ZonasModule, PagosModule, EstacionamientoSesionModule,
+  imports: [ConfigModule.forRoot({isGlobal:true}),VehiculosModule, PermisionariosModule, ZonasModule, PagosModule, EstacionamientoSesionModule,
   TypeOrmModule.forRoot({
   type: 'postgres',
   host: process.env.DB_HOST,

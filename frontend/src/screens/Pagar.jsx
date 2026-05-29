@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useParking } from '../context/ParkingContext'
-import { crearSesionEstacionamiento } from '../api/index'
+import { crearSesionEstacionamiento ,crearPreferenciaMercadoPago} from '../api/index'
 
 const METODOS = [
   {
@@ -19,6 +19,11 @@ const METODOS = [
     label: 'Tarjeta de Crédito',
     Icon: CreditIcon,
   },
+  {
+    key:"mercadopago",
+    label:"Mercado Pago",
+    Icon:CreditIcon
+  }
 ]
 
 export default function Pagar() {
@@ -35,15 +40,39 @@ export default function Pagar() {
     setLoading(true)
     setError(null)
     try {
-      const sesion = await crearSesionEstacionamiento({
-        patente: patente.toUpperCase(),
-        tipoVehiculo: vehiculo.toUpperCase(),
-        horas,
-        monto,
-        metodoPago: metodoPago.toUpperCase(),
-      })
-      updateParkingData({ sesionId: sesion.id ?? sesion._id ?? null })
-      navigate('/ticket')
+      if (metodoPago === 'mercadopago') {
+        // 1. Crear la sesión primero
+        const sesion = await crearSesionEstacionamiento({
+          patente: patente.toUpperCase(),
+          tipoVehiculo: vehiculo.toUpperCase(),
+          horas,
+          monto,
+          metodoPago: 'MERCADO_PAGO',
+        })
+
+
+        // 2. Pedir la preferencia de MP con el sesionId
+        const { init_point } = await crearPreferenciaMercadoPago({
+          sesionId: sesion.id ?? sesion._id,
+          amount: monto,
+          patente: patente.toUpperCase(),
+        })
+
+        // 3. Redirigir a MercadoPago
+        window.location.href = init_point
+
+      } else {
+        // Flujo normal para otros métodos
+        const sesion = await crearSesionEstacionamiento({
+          patente: patente.toUpperCase(),
+          tipoVehiculo: vehiculo.toUpperCase(),
+          horas,
+          monto,
+          metodoPago: metodoPago.toUpperCase(),
+        })
+        updateParkingData({ sesionId: sesion.id ?? sesion._id ?? null })
+        navigate('/ticket')
+      }
     } catch (e) {
       setError('No se pudo procesar el pago. Intentá de nuevo.')
     } finally {

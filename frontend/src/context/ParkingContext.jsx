@@ -16,7 +16,7 @@ export function ParkingProvider({ children }) {
     setParkingData(prev => ({ ...prev, ...updates }))
   }
 
-  const TARIFA = { auto: 700, moto: 300 }
+  const TARIFA = { auto: 1, moto: 300 }
   const DESCUENTO = 0.20
 
   const getTotal = () => {

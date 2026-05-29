@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Html5Qrcode } from 'html5-qrcode'
 import { useParking } from '../context/ParkingContext'
+import {ButtonRegresar} from '../components/buttonRegresar'
 
 export default function Escanear() {
   const navigate = useNavigate()
@@ -63,6 +64,7 @@ export default function Escanear() {
   return (
     <div className="flex flex-col" style={{ minHeight: '100vh', backgroundColor: '#0d1117' }}>
       {/* Header */}
+      <ButtonRegresar />
       <div
         style={{ backgroundColor: '#131820', borderBottom: '1px solid #1e2535' }}
         className="flex items-center justify-between px-4 py-3"

@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { api } from "../services/api";
 import PinInput from "../components/PinInput";
+import { ButtonRegresar } from "../components/buttonRegresar";
 
 const STEPS = {
   LEGAJO: "legajo",
@@ -111,6 +112,7 @@ export default function Auth() {
       <div className="w-full max-w-6xl bg-[#0C1017] rounded-2xl overflow-hidden border border-gray-800/80 flex flex-col lg:flex-row shadow-[0_0_80px_rgba(0,0,0,0.6)]">
 
         <div className="w-full lg:w-[45%] relative bg-gradient-to-br from-[#0d1117] via-[#0d1117] to-[#080B11] p-8 lg:p-14 flex flex-col justify-between min-h-[280px] lg:min-h-[700px] border-b lg:border-b-0 lg:border-r border-gray-800/80">
+      <ButtonRegresar/>
           <div className="absolute top-0 right-16 bottom-0 w-40 opacity-30 flex justify-between pointer-events-none">
             <div className="w-[2px] bg-gradient-to-b from-transparent via-brand to-transparent shadow-[0_0_15px_rgba(29,158,117,0.7)]" />
             <div className="w-[1px] bg-gradient-to-b from-transparent via-pink-500 to-transparent shadow-[0_0_10px_rgba(29,158,117,0.5)]" />

@@ -14,4 +14,14 @@ export async function crearSesionEstacionamiento(datos) {
   return res.json()
 }
 
+export const crearPreferenciaMercadoPago = async ({ sesionId, amount, patente }) => {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/pagos/preference`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sesionId, amount, patente }),
+  })
+  if (!res.ok) throw new Error('Error al crear preferencia')
+  return res.json()
+}
+
 export default API_URL
