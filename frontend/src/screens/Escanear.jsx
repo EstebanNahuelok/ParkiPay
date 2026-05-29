@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Html5Qrcode } from 'html5-qrcode'
 import { useParking } from '../context/ParkingContext'
-import {ButtonRegresar} from '../components/buttonRegresar'
+import {ButtonRegresar} from '../components/ButtonRegresar'
 
 export default function Escanear() {
   const navigate = useNavigate()
@@ -66,7 +66,7 @@ export default function Escanear() {
       {/* Header */}
       <ButtonRegresar />
       <div
-        style={{ backgroundColor: '#131820', borderBottom: '1px solid #1e2535' }}
+        style={{ backgroundColor: '#0d1117', borderBottom: '1px solid #2a3040' }}
         className="flex items-center justify-between px-4 py-3"
       >
         <div style={{ width: 40 }} />
@@ -80,7 +80,7 @@ export default function Escanear() {
       </div>
 
       {/* Scanner area — full remaining height */}
-      <div className="flex-1 flex flex-col items-center justify-center relative" style={{ backgroundColor: '#0a0e14' }}>
+      <div className="flex-1 flex flex-col items-center justify-center relative" style={{ backgroundColor: '#0d1117' }}>
         {/* Blurred background overlay to mimic camera blur */}
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, #1a2535 0%, #0a0e14 100%)' }} />
 
@@ -101,7 +101,7 @@ export default function Escanear() {
               width: 240,
               height: 240,
               overflow: 'hidden',
-              borderRadius: 12,
+              borderRadius: 14,
               opacity: scanError ? 0 : 1,
             }}
           />
@@ -146,7 +146,7 @@ export default function Escanear() {
       <div
         style={{
           backgroundColor: '#0d1117',
-          borderTop: '1px solid #1e2535',
+          borderTop: '1px solid #2a3040',
           padding: '12px 20px 28px',
         }}
       >
@@ -160,7 +160,7 @@ export default function Escanear() {
           style={{
             width: '100%',
             padding: '14px',
-            borderRadius: 12,
+            borderRadius: 14,
             border: '1px solid #1D9E75',
             backgroundColor: 'transparent',
             color: '#1D9E75',
@@ -186,7 +186,7 @@ export default function Escanear() {
       <div
         style={{
           backgroundColor: '#0d1117',
-          borderTop: '1px solid #1e2535',
+          borderTop: '1px solid #2a3040',
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
           padding: '8px 0 16px',
@@ -285,7 +285,7 @@ export default function Escanear() {
               style={{
                 width: '100%',
                 padding: '14px',
-                borderRadius: 12,
+                borderRadius: 14,
                 border: 'none',
                 backgroundColor: '#1D9E75',
                 color: '#fff',

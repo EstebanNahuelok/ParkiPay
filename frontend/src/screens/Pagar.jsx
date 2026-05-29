@@ -89,7 +89,7 @@ export default function Pagar() {
     <div className="flex flex-col" style={{ minHeight: '100vh', backgroundColor: '#0d1117' }}>
       {/* Header */}
       <div
-        style={{ backgroundColor: '#0d1117', borderBottom: '1px solid #1e2535' }}
+        style={{ backgroundColor: '#0d1117', borderBottom: '1px solid #2a3040' }}
         className="flex items-center px-4 py-3"
       >
         <button
@@ -106,13 +106,13 @@ export default function Pagar() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 px-5 pt-5 pb-6">
+      <div className="flex-1 px-5 pt-5 pb-6 w-full max-w-2xl mx-auto">
         {/* Summary card */}
         <div
           style={{
             backgroundColor: '#1a1f2e',
-            borderRadius: 16,
-            padding: '20px 20px 16px',
+            borderRadius: 20,
+            padding: '24px 20px 20px',
             marginBottom: 28,
           }}
         >
@@ -208,6 +208,7 @@ export default function Pagar() {
 
       {/* Bottom CTA */}
       <div style={{ padding: '0 20px 32px', backgroundColor: '#0d1117' }}>
+        <div className="w-full max-w-2xl mx-auto">
         {error && (
           <p style={{ color: '#ef4444', fontSize: 13, textAlign: 'center', marginBottom: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
@@ -219,12 +220,12 @@ export default function Pagar() {
           disabled={loading}
           style={{
             width: '100%',
-            padding: '16px',
+            padding: '15px',
             borderRadius: 14,
             border: 'none',
             backgroundColor: loading ? '#155e4a' : '#1D9E75',
             color: '#fff',
-            fontSize: 17,
+            fontSize: 16,
             fontWeight: '700',
             cursor: loading ? 'not-allowed' : 'pointer',
             display: 'flex',
@@ -249,6 +250,7 @@ export default function Pagar() {
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
           Pago seguro y encriptado
+        </div>
         </div>
       </div>
     </div>

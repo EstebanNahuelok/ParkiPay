@@ -19,10 +19,10 @@ export default function Confirmar() {
   }
 
   return (
-    <div className="flex flex-col" style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
+    <div className="flex flex-col" style={{ minHeight: '100vh', backgroundColor: '#0d1117' }}>
       {/* Header */}
       <div
-        style={{ backgroundColor: '#131820', borderBottom: '1px solid #1e2535' }}
+        style={{ backgroundColor: '#0d1117', borderBottom: '1px solid #2a3040' }}
         className="flex items-center justify-between px-4 py-3"
       >
         <button
@@ -43,8 +43,8 @@ export default function Confirmar() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 px-5 pt-7 pb-6" style={{ backgroundColor: '#f0f2f5' }}>
-        <h1 style={{ color: '#1D9E75', fontSize: 26, fontWeight: '700', margin: '0 0 4px' }}>
+      <div className="flex-1 px-5 pt-7 pb-6 w-full max-w-2xl mx-auto">
+        <h1 style={{ color: '#fff', fontSize: 26, fontWeight: '700', margin: '0 0 4px' }}>
           Confirmar datos
         </h1>
         <p style={{ color: '#9ca3af', fontSize: 14, margin: '0 0 24px' }}>
@@ -52,9 +52,9 @@ export default function Confirmar() {
         </p>
 
         {/* Main card */}
-        <div style={{ backgroundColor: '#c5cad4', borderRadius: 16, padding: 16 }}>
+        <div style={{ backgroundColor: '#1a1f2e', borderRadius: 20, padding: '20px 20px 24px' }}>
           {/* Patente */}
-          <label style={{ color: '#6b7280', fontSize: 11, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' }}>
+          <label style={{ color: '#9ca3af', fontSize: 11, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' }}>
             Patente
           </label>
           <input
@@ -89,7 +89,7 @@ export default function Confirmar() {
           )}
 
           {/* Vehículo */}
-          <label style={{ color: '#6b7280', fontSize: 11, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' }}>
+          <label style={{ color: '#9ca3af', fontSize: 11, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' }}>
             Vehículo
           </label>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 8, marginBottom: 20 }}>
@@ -102,9 +102,9 @@ export default function Confirmar() {
                 onClick={() => updateParkingData({ vehiculo: key })}
                 style={{
                   padding: '16px 8px 12px',
-                  borderRadius: 12,
-                  border: vehiculo === key ? '2px solid #1D9E75' : '2px solid transparent',
-                  backgroundColor: vehiculo === key ? '#0d1925' : '#131c29',
+                  borderRadius: 14,
+                  border: vehiculo === key ? '2px solid #1D9E75' : '2px solid #2a3040',
+                  backgroundColor: vehiculo === key ? 'rgba(29,158,117,0.08)' : '#0d1117',
                   color: vehiculo === key ? '#1D9E75' : '#9ca3af',
                   cursor: 'pointer',
                   display: 'flex',
@@ -124,7 +124,7 @@ export default function Confirmar() {
           </div>
 
           {/* Tiempo estimado */}
-          <label style={{ color: '#6b7280', fontSize: 11, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' }}>
+          <label style={{ color: '#9ca3af', fontSize: 11, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' }}>
             Tiempo estimado
           </label>
           <div
@@ -167,31 +167,31 @@ export default function Confirmar() {
         <div
           style={{
             marginTop: 16,
-            borderRadius: 16,
-            backgroundColor: '#c5cad4',
-            border: '2px solid #1D9E75',
-            padding: 16,
+            borderRadius: 20,
+            backgroundColor: '#1a1f2e',
+            border: '2px solid rgba(29,158,117,0.4)',
+            padding: '20px 20px 20px',
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-            <span style={{ color: '#374151', fontSize: 14 }}>Total a pagar</span>
-            <span style={{ color: '#1a1f2e', fontSize: 18, fontWeight: '700' }}>
+            <span style={{ color: '#9ca3af', fontSize: 14 }}>Total a pagar</span>
+            <span style={{ color: '#6b7280', fontSize: 18, fontWeight: '700', textDecoration: 'line-through' }}>
               ${getTotal().toLocaleString('es-AR')}
             </span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" strokeWidth="2.5">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M9 12l2 2 4-4" />
               </svg>
-              <span style={{ color: '#1D9E75', fontSize: 14, fontWeight: '600' }}>
-                Con pago digital: ${getTotalConDescuento().toLocaleString('es-AR')}
+              <span style={{ color: '#fff', fontSize: 22, fontWeight: '800' }}>
+                ${getTotalConDescuento().toLocaleString('es-AR')}
               </span>
             </div>
-            <span style={{ color: '#1D9E75', fontSize: 13, fontWeight: '600', backgroundColor: 'rgba(29,158,117,0.15)', padding: '2px 8px', borderRadius: 99 }}>
-              -20%
+            <span style={{ color: '#1D9E75', fontSize: 13, fontWeight: '600', backgroundColor: 'rgba(29,158,117,0.15)', border: '1px solid rgba(29,158,117,0.4)', padding: '4px 10px', borderRadius: 99 }}>
+              -20% Dto
             </span>
           </div>
 
@@ -200,16 +200,23 @@ export default function Confirmar() {
             style={{
               width: '100%',
               padding: '15px',
-              borderRadius: 12,
+              borderRadius: 14,
               border: 'none',
               backgroundColor: '#1D9E75',
               color: '#fff',
               fontSize: 16,
               fontWeight: '700',
               cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
             }}
           >
             Ir a pagar
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </button>
         </div>
       </div>

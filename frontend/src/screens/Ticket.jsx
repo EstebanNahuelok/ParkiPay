@@ -11,7 +11,7 @@ function getValidoHasta(horas) {
 export default function Ticket() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { parkingData, getTotalConDescuento } = useParking()
+  const { parkingData, getTotalConDescuento, updateParkingData } = useParking()
   const { patente, vehiculo, horas, cuadra, sesionId } = parkingData
 
   const mpStatus = searchParams.get('status')
@@ -51,6 +51,102 @@ export default function Ticket() {
     }
   }, [mpStatus, mpPaymentId])
 
+  if (mpStatus === 'pending') {
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          backgroundColor: '#0d1117',
+          padding: '40px 20px 32px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: 72,
+            height: 72,
+            borderRadius: '50%',
+            backgroundColor: '#2a2a1a',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 16,
+          }}
+        >
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#e5c100" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+        </div>
+        <h1 style={{ color: '#fff', fontSize: 26, fontWeight: '700', margin: '0 0 6px', textAlign: 'center' }}>
+          Pago pendiente
+        </h1>
+        <p style={{ color: '#9ca3af', fontSize: 15, margin: 0, textAlign: 'center' }}>
+          Tu pago está siendo procesado
+        </p>
+      </div>
+    )
+  }
+
+  if (mpStatus && mpStatus !== 'approved') {
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          backgroundColor: '#0d1117',
+          padding: '40px 20px 32px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: 72,
+            height: 72,
+            borderRadius: '50%',
+            backgroundColor: '#2a1a1a',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 16,
+          }}
+        >
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#e55555" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="15" y1="9" x2="9" y2="15" />
+            <line x1="9" y1="9" x2="15" y2="15" />
+          </svg>
+        </div>
+        <h1 style={{ color: '#fff', fontSize: 26, fontWeight: '700', margin: '0 0 6px', textAlign: 'center' }}>
+          Pago no completado
+        </h1>
+        <p style={{ color: '#9ca3af', fontSize: 15, margin: '0 0 32px', textAlign: 'center' }}>
+          Podés intentarlo nuevamente
+        </p>
+        <button
+          onClick={() => navigate('/pagar')}
+          style={{
+            padding: '15px 32px',
+            borderRadius: 14,
+            border: 'none',
+            backgroundColor: '#1D9E75',
+            color: '#fff',
+            fontSize: 16,
+            fontWeight: '700',
+            cursor: 'pointer',
+          }}
+        >
+          Volver a intentar
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div
       className="flex flex-col items-center"
@@ -62,7 +158,7 @@ export default function Ticket() {
           width: 72,
           height: 72,
           borderRadius: '50%',
-          backgroundColor: mpStatus === 'pending' ? '#2a2a1a' : '#1a3a2e',
+          backgroundColor: '#1a3a2e',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -71,7 +167,7 @@ export default function Ticket() {
       >
         <svg
           width="36" height="36" viewBox="0 0 24 24" fill="none"
-          stroke={mpStatus === 'pending' ? '#e5c100' : '#1D9E75'}
+          stroke="#1D9E75"
           strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
         >
           <circle cx="12" cy="12" r="10" />
@@ -80,12 +176,10 @@ export default function Ticket() {
       </div>
 
       <h1 style={{ color: '#fff', fontSize: 26, fontWeight: '700', margin: '0 0 6px', textAlign: 'center' }}>
-        {mpStatus === 'pending' ? '⏳ Pago pendiente' : '¡Pagaste!'}
+        ¡Pagaste!
       </h1>
       <p style={{ color: '#9ca3af', fontSize: 15, margin: '0 0 28px', textAlign: 'center' }}>
-        {mpStatus === 'pending'
-          ? 'Tu pago está siendo procesado'
-          : 'Tu estacionamiento está activo'}
+        Tu estacionamiento está activo
       </p>
 
       {/* Ticket card */}

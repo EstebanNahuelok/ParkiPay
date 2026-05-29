@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { api } from "../services/api";
 import PinInput from "../components/PinInput";
-import { ButtonRegresar } from "../components/buttonRegresar";
+import { ButtonRegresar } from "../components/ButtonRegresar";
 
 const STEPS = {
   LEGAJO: "legajo",
