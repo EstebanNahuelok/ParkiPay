@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post, Query } from '@nestjs/common';
 import { PagosService } from './pagos.service';
 import { CreatePreferenceDto } from './dto/create-preference.dto';
 
@@ -15,8 +15,10 @@ export class PagosController {
   // MP llama esto automáticamente cuando el usuario paga
   @Post('webhook')
   @HttpCode(200)
-  handleWebhook(@Body() body: any) {
-    return this.pagosService.handleWebhook(body);
+  handleWebhook(@Body() body: any, @Query() query: any) {
+    console.log('Webhook body:', JSON.stringify(body))
+    console.log('Webhook query:', JSON.stringify(query))
+    return this.pagosService.handleWebhook(body, query)
   }
 
   @Get(':id')

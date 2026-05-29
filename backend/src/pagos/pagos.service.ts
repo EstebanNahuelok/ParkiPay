@@ -36,6 +36,7 @@ export class PagosService {
       estacionamientoSesion: { id: dto.sesionId },
     });
     const pagoDB = await this.pagosRepo.save(pago);
+    const backendUrl = this.configService.get<string>('BACKEND_URL')
 
     const response = await this.preference.create({
       body: {
@@ -54,7 +55,8 @@ export class PagosService {
           failure: `${frontendUrl}/pagar?error=true`,
           pending: `${frontendUrl}/ticket?pending=true`,
         },
-        // auto_return: 'approved',
+        notification_url: `${backendUrl}/api/pagos/webhook`,
+        auto_return: 'approved',
       },
     });
 
@@ -64,28 +66,39 @@ export class PagosService {
     };
   }
 
-  async handleWebhook(body: any) {
-    if (body.type !== 'payment') return;
+  async handleWebhook(body: any, query?: any) {
+    console.log('Webhook body:', JSON.stringify(body))
+    console.log('Webhook query:', JSON.stringify(query))
 
-    const mpPayment = await this.payment.get({ id: body.data.id });
-    const pagoId = mpPayment.external_reference;
+    const type = body?.type ?? query?.type
+    const dataId = body?.data?.id ?? query?.['data.id']
 
-    if (!pagoId) return;
+    if (type !== 'payment' || !dataId) return;
 
-    const pago = await this.pagosRepo.findOne({ where: { id: pagoId } });
-    if (!pago) return;
+    try {
+      const mpPayment = await this.payment.get({ id: dataId });
+      const pagoId = mpPayment.external_reference;
 
-    const statusMap: Record<string, PaymentStatus> = {
-      approved: PaymentStatus.APPROVED,
-      rejected: PaymentStatus.REJECTED,
-      pending:  PaymentStatus.PENDING,
-    };
+      if (!pagoId) return;
 
-    pago.status = statusMap[mpPayment.status as string] ?? PaymentStatus.PENDING;
-    pago.externalPaymentId = String(body.data.id);
-    await this.pagosRepo.save(pago);
+      const pago = await this.pagosRepo.findOne({ where: { id: pagoId } });
+      if (!pago) return;
+
+      const statusMap: Record<string, PaymentStatus> = {
+        approved: PaymentStatus.APPROVED,
+        rejected: PaymentStatus.REJECTED,
+        pending: PaymentStatus.PENDING,
+      };
+
+      pago.status = statusMap[mpPayment.status as string] ?? PaymentStatus.PENDING;
+      pago.externalPaymentId = String(dataId);
+      await this.pagosRepo.save(pago);
+
+      console.log(`Pago ${pagoId} actualizado a ${pago.status}`)
+    } catch (e) {
+      console.error('Error procesando webhook:', e)
+    }
   }
-
   async findOne(id: string) {
     const pago = await this.pagosRepo.findOne({ where: { id } });
     if (!pago) throw new NotFoundException(`Pago ${id} no encontrado`);

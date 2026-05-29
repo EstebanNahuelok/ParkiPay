@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useParking } from '../context/ParkingContext'
-import { crearSesionEstacionamiento ,crearPreferenciaMercadoPago} from '../api/index'
+import { crearSesionEstacionamiento, crearPreferenciaMercadoPago } from '../api/index'
 
 const METODOS = [
   {
@@ -20,9 +20,9 @@ const METODOS = [
     Icon: CreditIcon,
   },
   {
-    key:"mercadopago",
-    label:"Mercado Pago",
-    Icon:CreditIcon
+    key: "mercadopago",
+    label: "Mercado Pago",
+    Icon: CreditIcon
   }
 ]
 
@@ -49,6 +49,11 @@ export default function Pagar() {
           monto,
           metodoPago: 'MERCADO_PAGO',
         })
+        sessionStorage.setItem('parkingData', JSON.stringify({
+          ...parkingData,
+          sesionId: sesion.id ?? sesion._id,
+          monto,
+        }))
 
 
         // 2. Pedir la preferencia de MP con el sesionId
@@ -205,7 +210,7 @@ export default function Pagar() {
       <div style={{ padding: '0 20px 32px', backgroundColor: '#0d1117' }}>
         {error && (
           <p style={{ color: '#ef4444', fontSize: 13, textAlign: 'center', marginBottom: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
             {error}
           </p>
         )}

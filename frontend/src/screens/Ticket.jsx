@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { QRCodeSVG } from 'qrcode.react'
 import { useParking } from '../context/ParkingContext'
-
+import { useEffect } from 'react'
 function getValidoHasta(horas) {
   const now = new Date()
   now.setHours(now.getHours() + horas)
@@ -10,8 +10,12 @@ function getValidoHasta(horas) {
 
 export default function Ticket() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { parkingData, getTotalConDescuento } = useParking()
   const { patente, vehiculo, horas, cuadra, sesionId } = parkingData
+
+  const mpStatus = searchParams.get('status')
+  const mpPaymentId = searchParams.get('payment_id')
 
   const validoHasta = getValidoHasta(horas)
   const monto = getTotalConDescuento()
@@ -31,11 +35,21 @@ export default function Ticket() {
     if (navigator.share) {
       try {
         await navigator.share({ title: 'Ticket SEM Salta', text })
-      } catch {}
+      } catch { }
     } else if (navigator.clipboard) {
       await navigator.clipboard.writeText(text)
     }
   }
+  useEffect(() => {
+    if (mpStatus && mpPaymentId) {
+      const saved = sessionStorage.getItem('parkingData')
+      if (saved) {
+        const data = JSON.parse(saved)
+        updateParkingData(data)
+        sessionStorage.removeItem('parkingData') // limpiar después de usar
+      }
+    }
+  }, [mpStatus, mpPaymentId])
 
   return (
     <div
@@ -48,24 +62,30 @@ export default function Ticket() {
           width: 72,
           height: 72,
           borderRadius: '50%',
-          backgroundColor: '#1a3a2e',
+          backgroundColor: mpStatus === 'pending' ? '#2a2a1a' : '#1a3a2e',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: 16,
         }}
       >
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="36" height="36" viewBox="0 0 24 24" fill="none"
+          stroke={mpStatus === 'pending' ? '#e5c100' : '#1D9E75'}
+          strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+        >
           <circle cx="12" cy="12" r="10" />
           <path d="M9 12l2 2 4-4" />
         </svg>
       </div>
 
       <h1 style={{ color: '#fff', fontSize: 26, fontWeight: '700', margin: '0 0 6px', textAlign: 'center' }}>
-        ¡Pagaste!
+        {mpStatus === 'pending' ? '⏳ Pago pendiente' : '¡Pagaste!'}
       </h1>
       <p style={{ color: '#9ca3af', fontSize: 15, margin: '0 0 28px', textAlign: 'center' }}>
-        Tu estacionamiento está activo
+        {mpStatus === 'pending'
+          ? 'Tu pago está siendo procesado'
+          : 'Tu estacionamiento está activo'}
       </p>
 
       {/* Ticket card */}
@@ -80,20 +100,8 @@ export default function Ticket() {
         }}
       >
         {/* QR Code */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginBottom: 24,
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: '#fff',
-              padding: 12,
-              borderRadius: 10,
-            }}
-          >
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+          <div style={{ backgroundColor: '#fff', padding: 12, borderRadius: 10 }}>
             <QRCodeSVG
               value={qrData}
               size={160}
@@ -106,11 +114,11 @@ export default function Ticket() {
 
         {/* Info rows */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          {sesionId && (
+          {(sesionId || mpPaymentId) && (
             <InfoRow
               icon={<TicketIcon />}
               label="N° Ticket"
-              value={`#${sesionId}`}
+              value={`#${mpPaymentId ?? sesionId}`}
               valueColor="#9ca3af"
               isLast={false}
             />
@@ -133,6 +141,13 @@ export default function Ticket() {
             label="Patente"
             value={patente}
             valueTag
+            isLast={false}
+          />
+          <InfoRow
+            icon={<MoneyIcon />}
+            label="Monto pagado"
+            value={`$${monto.toLocaleString('es-AR')}`}
+            valueColor="#1D9E75"
             isLast
           />
         </div>
@@ -161,7 +176,7 @@ export default function Ticket() {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M3 11l19-9-9 19-2-8-8-2z" />
           </svg>
-          Volver al mapa
+          Volver al inicio
         </button>
         <button
           onClick={handleShare}
@@ -262,6 +277,15 @@ function CarIcon() {
       <path d="M5 17H3v-5l2-5h14l2 5v5h-2" />
       <circle cx="7.5" cy="17.5" r="1.5" />
       <circle cx="16.5" cy="17.5" r="1.5" />
+    </svg>
+  )
+}
+
+function MoneyIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <line x1="12" y1="1" x2="12" y2="23" />
+      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
     </svg>
   )
 }
