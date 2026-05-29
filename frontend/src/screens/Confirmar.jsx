@@ -180,7 +180,7 @@ export default function Confirmar() {
             </span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 8 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" strokeWidth="2.5">
                 <circle cx="12" cy="12" r="10" />
@@ -190,7 +190,7 @@ export default function Confirmar() {
                 ${getTotalConDescuento().toLocaleString('es-AR')}
               </span>
             </div>
-            <span style={{ color: '#1D9E75', fontSize: 13, fontWeight: '600', backgroundColor: 'rgba(29,158,117,0.15)', border: '1px solid rgba(29,158,117,0.4)', padding: '4px 10px', borderRadius: 99 }}>
+            <span style={{ color: '#1D9E75', fontSize: 13, fontWeight: '600', backgroundColor: 'rgba(29,158,117,0.15)', border: '1px solid rgba(29,158,117,0.4)', padding: '4px 10px', borderRadius: 99, flexShrink: 0 }}>
               -20% Dto
             </span>
           </div>

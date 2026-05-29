@@ -30,11 +30,23 @@ html, body {
   width: 100%;
   max-width: 430px;
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: #0d1117;
   position: relative;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+}
+
+/* Safe-area helpers for iOS home-indicator */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (min-width: 431px) {
+  #root {
+    justify-content: flex-start;
+  }
 }
 
 @media (min-width: 768px) {

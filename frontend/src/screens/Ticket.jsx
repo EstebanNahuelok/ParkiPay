@@ -150,7 +150,7 @@ export default function Ticket() {
   return (
     <div
       className="flex flex-col items-center"
-      style={{ minHeight: '100vh', backgroundColor: '#0d1117', padding: '40px 20px 32px' }}
+      style={{ minHeight: '100dvh', backgroundColor: '#0d1117', padding: '40px 20px calc(32px + env(safe-area-inset-bottom, 0px))' }}
     >
       {/* Checkmark */}
       <div
@@ -195,13 +195,14 @@ export default function Ticket() {
       >
         {/* QR Code */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
-          <div style={{ backgroundColor: '#fff', padding: 12, borderRadius: 10 }}>
+          <div style={{ backgroundColor: '#fff', padding: 12, borderRadius: 10, width: 'min(220px, 72%)', boxSizing: 'border-box' }}>
             <QRCodeSVG
               value={qrData}
               size={160}
               bgColor="#ffffff"
               fgColor="#000000"
               level="M"
+              style={{ width: '100%', height: 'auto', display: 'block' }}
             />
           </div>
         </div>
@@ -328,12 +329,16 @@ function InfoRow({ icon, label, value, valueColor, valueTag, isLast }) {
             padding: '6px 12px',
             borderRadius: 8,
             letterSpacing: 2,
+            maxWidth: '60%',
+            overflowWrap: 'break-word',
+            wordBreak: 'break-all',
+            textAlign: 'right',
           }}
         >
           {value}
         </span>
       ) : (
-        <span style={{ color: valueColor || '#fff', fontSize: 14, fontWeight: '600' }}>{value}</span>
+        <span style={{ color: valueColor || '#fff', fontSize: 14, fontWeight: '600', maxWidth: '60%', overflowWrap: 'break-word', textAlign: 'right' }}>{value}</span>
       )}
     </div>
   )

@@ -147,7 +147,7 @@ export default function Escanear() {
         style={{
           backgroundColor: '#0d1117',
           borderTop: '1px solid #2a3040',
-          padding: '12px 20px 28px',
+          padding: '12px 20px calc(28px + env(safe-area-inset-bottom, 0px))',
         }}
       >
         {/* Drag handle */}
@@ -189,7 +189,7 @@ export default function Escanear() {
           borderTop: '1px solid #2a3040',
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
-          padding: '8px 0 16px',
+          padding: '8px 0 calc(16px + env(safe-area-inset-bottom, 0px))',
         }}
       >
         {[
@@ -231,7 +231,7 @@ export default function Escanear() {
               maxWidth: 430,
               backgroundColor: '#1a1f2e',
               borderRadius: '20px 20px 0 0',
-              padding: '24px 20px 40px',
+              padding: '24px 20px calc(40px + env(safe-area-inset-bottom, 0px))',
             }}
           >
             <div className="flex justify-between items-center mb-6">

@@ -55,13 +55,13 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto p-4 pb-24">
+      <main className="max-w-7xl mx-auto p-4" style={{ paddingBottom: 'calc(6rem + env(safe-area-inset-bottom, 0px))' }}>
         {activeTab === TABS.CUADRA && <MiCuadra onCobrar={() => setActiveTab(TABS.COBRAR)} />}
         {activeTab === TABS.COBRAR && <Cobrar onVolver={() => setActiveTab(TABS.CUADRA)} />}
         {activeTab === TABS.HISTORIAL && <Historial />}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-[#0C1017] border-t border-gray-800 z-50">
+      <nav className="fixed bottom-0 left-0 right-0 bg-[#0C1017] border-t border-gray-800 z-50" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
         <div className="max-w-7xl mx-auto flex">
           <button
             onClick={() => setActiveTab(TABS.CUADRA)}
@@ -643,16 +643,16 @@ function Cobrar({ onVolver }) {
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
-                <div className="w-12 h-12 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                <div className="text-left">
+                <div className="text-left flex-1 min-w-0">
                   <p className="font-bold">Efectivo</p>
                   <p className="text-sm text-gray-500">El conductor paga en mano</p>
                 </div>
-                <span className="ml-auto text-xl font-bold text-green-500">
+                <span className="ml-auto text-xl font-bold text-green-500 flex-shrink-0">
                   ${calcularTotal().toLocaleString('es-AR')}
                 </span>
               </button>
@@ -664,16 +664,16 @@ function Cobrar({ onVolver }) {
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
-                <div className="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <div className="text-left">
+                <div className="text-left flex-1 min-w-0">
                   <p className="font-bold">Digital (Conductor Paga)</p>
                   <p className="text-sm text-gray-500">20% descuento municipal</p>
                 </div>
-                <div className="ml-auto text-right">
+                <div className="ml-auto text-right flex-shrink-0">
                   <p className="text-xs text-gray-600 line-through">${calcularTotal().toLocaleString('es-AR')}</p>
                   <p className="text-xl font-bold text-green-500">
                     ${calcularTotalConDescuento().toLocaleString('es-AR')}
@@ -699,12 +699,12 @@ function Cobrar({ onVolver }) {
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
-                <div className="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <div className="text-left">
+                <div className="text-left flex-1 min-w-0">
                   <p className="font-bold">Mercado Pago</p>
                   <p className="text-sm text-gray-500">Link de pago o botón en la app</p>
                 </div>
@@ -718,12 +718,12 @@ function Cobrar({ onVolver }) {
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
-                <div className="w-12 h-12 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                   </svg>
                 </div>
-                <div className="text-left">
+                <div className="text-left flex-1 min-w-0">
                   <p className="font-bold">Transferencia Bancaria</p>
                   <p className="text-sm text-gray-500">Alias/CBU de la Municipalidad</p>
                 </div>
@@ -737,12 +737,12 @@ function Cobrar({ onVolver }) {
                     : 'border-gray-800 bg-[#111622] hover:border-gray-700'
                 }`}
               >
-                <div className="w-12 h-12 rounded-lg bg-gray-500/10 border border-brand/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-gray-500/10 border border-brand/20 flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                   </svg>
                 </div>
-                <div className="text-left">
+                <div className="text-left flex-1 min-w-0">
                   <p className="font-bold">QR Interoperable</p>
                   <p className="text-sm text-gray-500">MP, Modo, Cuenta DNI, Ualá</p>
                 </div>

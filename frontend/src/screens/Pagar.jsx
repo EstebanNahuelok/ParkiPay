@@ -119,11 +119,11 @@ export default function Pagar() {
           <p style={{ color: '#9ca3af', fontSize: 11, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase', margin: '0 0 8px' }}>
             Total a pagar
           </p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-            <span style={{ color: '#fff', fontSize: 38, fontWeight: '800' }}>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 12, rowGap: 8, marginBottom: 16 }}>
+            <span style={{ color: '#fff', fontSize: 'clamp(26px, 9vw, 38px)', fontWeight: '800' }}>
               ${monto.toLocaleString('es-AR')}
             </span>
-            <span style={{ color: '#6b7280', fontSize: 20, fontWeight: '400', textDecoration: 'line-through' }}>
+            <span style={{ color: '#6b7280', fontSize: 'clamp(16px, 5vw, 20px)', fontWeight: '400', textDecoration: 'line-through' }}>
               ${original.toLocaleString('es-AR')}
             </span>
             <span
@@ -139,6 +139,7 @@ export default function Pagar() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 4,
+                flexShrink: 0,
               }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -207,7 +208,7 @@ export default function Pagar() {
       </div>
 
       {/* Bottom CTA */}
-      <div style={{ padding: '0 20px 32px', backgroundColor: '#0d1117' }}>
+      <div style={{ padding: '0 20px calc(32px + env(safe-area-inset-bottom, 0px))', backgroundColor: '#0d1117' }}>
         <div className="w-full max-w-2xl mx-auto">
         {error && (
           <p style={{ color: '#ef4444', fontSize: 13, textAlign: 'center', marginBottom: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
