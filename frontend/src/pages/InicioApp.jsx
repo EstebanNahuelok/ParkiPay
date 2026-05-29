@@ -4,12 +4,16 @@ export  function InicioApp() {
   const navigate = useNavigate()
 
   return (
+    <>
+    <div className="bg-salta" />
+    <div className="bg-salta-overlay" />
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: '#0d1117',
         display: 'flex',
         flexDirection: 'column',
+        position: 'relative',
+        zIndex: 2,
       }}
     >
       {/* Header */}
@@ -37,7 +41,7 @@ export  function InicioApp() {
           alignItems: 'center',
           justifyContent: 'center',
           padding: '40px 24px',
-          background: 'radial-gradient(ellipse at 50% 30%, #1a2535 0%, #0a0e14 70%)',
+          background: 'transparent',
         }}
       >
         {/* Logo / Icon */}
@@ -223,5 +227,6 @@ export  function InicioApp() {
         </p>
       </div>
     </div>
+    </>
   )
 }

@@ -31,11 +31,31 @@ html, body {
   max-width: 430px;
   min-height: 100vh;
   min-height: 100dvh;
-  background-color: #0d1117;
   position: relative;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+}
+
+/* Salta background image with blur */
+.bg-salta {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('/imagen_salta.png');
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px);
+  transform: scale(1.05);
+  z-index: 0;
+}
+
+.bg-salta-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
 }
 
 /* Safe-area helpers for iOS home-indicator */

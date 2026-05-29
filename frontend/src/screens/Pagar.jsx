@@ -86,7 +86,10 @@ export default function Pagar() {
   }
 
   return (
-    <div className="flex flex-col" style={{ minHeight: '100vh', backgroundColor: '#0d1117' }}>
+    <>
+    <div className="bg-salta" />
+    <div className="bg-salta-overlay" />
+    <div className="flex flex-col" style={{ minHeight: '100vh', position: 'relative', zIndex: 2 }}>
       {/* Header */}
       <div
         style={{ backgroundColor: '#0d1117', borderBottom: '1px solid #2a3040' }}
@@ -255,6 +258,7 @@ export default function Pagar() {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

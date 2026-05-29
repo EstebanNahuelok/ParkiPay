@@ -53,15 +53,19 @@ export default function Ticket() {
 
   if (mpStatus === 'pending') {
     return (
+      <>
+      <div className="bg-salta" />
+      <div className="bg-salta-overlay" />
       <div
         style={{
           minHeight: '100vh',
-          backgroundColor: '#0d1117',
           padding: '40px 20px 32px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          position: 'relative',
+          zIndex: 2,
         }}
       >
         <div
@@ -88,20 +92,25 @@ export default function Ticket() {
           Tu pago está siendo procesado
         </p>
       </div>
+      </>
     )
   }
 
   if (mpStatus && mpStatus !== 'approved') {
     return (
+      <>
+      <div className="bg-salta" />
+      <div className="bg-salta-overlay" />
       <div
         style={{
           minHeight: '100vh',
-          backgroundColor: '#0d1117',
           padding: '40px 20px 32px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          position: 'relative',
+          zIndex: 2,
         }}
       >
         <div
@@ -144,13 +153,17 @@ export default function Ticket() {
           Volver a intentar
         </button>
       </div>
+      </>
     )
   }
 
   return (
+    <>
+    <div className="bg-salta" />
+    <div className="bg-salta-overlay" />
     <div
       className="flex flex-col items-center"
-      style={{ minHeight: '100dvh', backgroundColor: '#0d1117', padding: '40px 20px calc(32px + env(safe-area-inset-bottom, 0px))' }}
+      style={{ minHeight: '100dvh', padding: '40px 20px calc(32px + env(safe-area-inset-bottom, 0px))', position: 'relative', zIndex: 2 }}
     >
       {/* Checkmark */}
       <div
@@ -302,6 +315,7 @@ export default function Ticket() {
         </button>
       </div>
     </div>
+    </>
   )
 }
 

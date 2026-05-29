@@ -108,7 +108,10 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080B11] text-white font-sans flex items-center justify-center p-4 sm:p-6">
+    <>
+    <div className="bg-salta" />
+    <div className="bg-salta-overlay" />
+    <div className="min-h-screen text-white font-sans flex items-center justify-center p-4 sm:p-6 relative z-[2]">
       <div className="w-full max-w-6xl bg-[#0C1017] rounded-2xl overflow-hidden border border-gray-800/80 flex flex-col lg:flex-row shadow-[0_0_80px_rgba(0,0,0,0.6)]">
 
         <div className="w-full lg:w-[45%] relative bg-gradient-to-br from-[#0d1117] via-[#0d1117] to-[#080B11] p-8 lg:p-14 flex flex-col justify-between min-h-[280px] lg:min-h-[700px] border-b lg:border-b-0 lg:border-r border-gray-800/80">
@@ -419,5 +422,6 @@ export default function Auth() {
 
       </div>
     </div>
+    </>
   );
 }

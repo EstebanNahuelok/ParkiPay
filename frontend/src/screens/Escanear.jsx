@@ -62,7 +62,10 @@ export default function Escanear() {
   }
 
   return (
-    <div className="flex flex-col" style={{ minHeight: '100vh', backgroundColor: '#0d1117' }}>
+    <>
+    <div className="bg-salta" />
+    <div className="bg-salta-overlay" />
+    <div className="flex flex-col" style={{ minHeight: '100vh', position: 'relative', zIndex: 2 }}>
       {/* Header */}
       <ButtonRegresar />
       <div
@@ -300,6 +303,7 @@ export default function Escanear() {
         </div>
       )}
     </div>
+    </>
   )
 }
 
