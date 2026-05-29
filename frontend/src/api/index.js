@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000'
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000'
 
 export async function crearSesionEstacionamiento(datos) {
   const res = await fetch(`${API_URL}/api/estacionamiento-sesion`, {
@@ -15,7 +15,7 @@ export async function crearSesionEstacionamiento(datos) {
 }
 
 export const crearPreferenciaMercadoPago = async ({ sesionId, amount, patente }) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/pagos/preference`, {
+  const res = await fetch(`${API_URL}/api/pagos/preference`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ sesionId, amount, patente }),
