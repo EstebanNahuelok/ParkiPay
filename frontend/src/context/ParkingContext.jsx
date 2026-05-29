@@ -10,6 +10,7 @@ export function ParkingProvider({ children }) {
     cuadra: 'Alberdi y Mitre',
     metodoPago: 'transferencia',
     sesionId: null,
+    parkingSpot: null,
   })
 
   const updateParkingData = (updates) => {

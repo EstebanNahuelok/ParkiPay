@@ -1,7 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useParking } from '../context/ParkingContext'
 import { crearSesionEstacionamiento, crearPreferenciaMercadoPago } from '../api/index'
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2)
+}
+
+async function reverseGeocode(lat, lng) {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=es`,
+      { headers: { 'User-Agent': 'ParkiPay/1.0' } }
+    )
+    const data = await response.json()
+    if (data.address) {
+      const addr = data.address
+      const street = addr.road || addr.street || addr.pedestrian || addr.footway || ''
+      const number = addr.house_number || ''
+      const city = addr.city || addr.town || addr.village || 'Salta'
+      
+      let addressStr = ''
+      if (street && number) addressStr = `${street} ${number}`
+      else if (street) addressStr = street
+      else addressStr = `${lat.toFixed(5)}, ${lng.toFixed(5)}`
+      
+      const parts = [addressStr]
+      if (city && city !== 'Salta') parts.push(city)
+      parts.push('Salta')
+      return parts.join(', ')
+    }
+    return `${lat.toFixed(5)}, ${lng.toFixed(5)}`
+  } catch {
+    return `${lat.toFixed(5)}, ${lng.toFixed(5)}`
+  }
+}
 
 const METODOS = [
   {
@@ -29,9 +62,70 @@ const METODOS = [
 export default function Pagar() {
   const navigate = useNavigate()
   const { parkingData, updateParkingData, getTotalConDescuento, getTotal } = useParking()
-  const { patente, vehiculo, horas, cuadra, metodoPago } = parkingData
+  const { patente, vehiculo, horas, cuadra, metodoPago, parkingSpot } = parkingData
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [locationStatus, setLocationStatus] = useState(parkingSpot ? 'verified' : 'none')
+  const [currentAddress, setCurrentAddress] = useState(parkingSpot?.address || '')
+  const [currentLocation, setCurrentLocation] = useState(parkingSpot || null)
+
+  useEffect(() => {
+    if (parkingSpot) {
+      setCurrentLocation(parkingSpot)
+      setCurrentAddress(parkingSpot.address || '')
+      // Si vino por dirección manual (lat/lng null), no hay nada que reverificar
+      if (parkingSpot.lat != null && parkingSpot.lng != null) {
+        verifyLocation(parkingSpot.lat, parkingSpot.lng)
+      } else {
+        setLocationStatus('verified')
+      }
+    } else {
+      setLocationStatus('none')
+    }
+  }, [])
+
+  const verifyLocation = async (lat, lng) => {
+    setLocationStatus('verifying')
+    try {
+      const addr = await reverseGeocode(lat, lng)
+      setCurrentAddress(addr)
+      setLocationStatus('verified')
+    } catch {
+      setLocationStatus('error')
+    }
+  }
+
+  const requestNewLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationStatus('error')
+      return
+    }
+
+    setLocationStatus('locating')
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+        setCurrentLocation(loc)
+        await verifyLocation(loc.lat, loc.lng)
+        
+        updateParkingData({
+          parkingSpot: {
+            id: generateId(),
+            lat: loc.lat,
+            lng: loc.lng,
+            address: currentAddress,
+            timestamp: new Date().toISOString(),
+          }
+        })
+      },
+      () => {
+        setLocationStatus('error')
+      },
+      { timeout: 15000, enableHighAccuracy: true }
+    )
+  }
+
+  
 
   const monto = getTotalConDescuento()
   const original = getTotal()
@@ -107,6 +201,117 @@ export default function Pagar() {
           Checkout
         </span>
       </div>
+
+      {/* Location Verification */}
+      {(locationStatus === 'verifying' || locationStatus === 'locating') && (
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-8">
+          <div className="text-center">
+            <div className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center animate-pulse" style={{ backgroundColor: 'rgba(29, 158, 117, 0.1)', border: '2px solid rgba(29, 158, 117, 0.3)' }}>
+              <svg width="36" height="36" fill="none" stroke="#1D9E75" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <h2 style={{ color: '#fff', fontSize: 22, fontWeight: '700', margin: '0 0 8px' }}>
+              Verificando ubicación...
+            </h2>
+            <p style={{ color: '#9ca3af', fontSize: 14, margin: 0 }}>
+              {locationStatus === 'locating' ? 'Obteniendo GPS...' : 'Consultando mapa...'}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {locationStatus === 'verified' && currentLocation && (
+        <div className="px-5 pt-4 pb-0">
+          <div 
+            className="flex items-center gap-3 p-4 rounded-xl"
+            style={{ backgroundColor: 'rgba(29, 158, 117, 0.1)', border: '1px solid rgba(29, 158, 117, 0.2)' }}
+          >
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(29, 158, 117, 0.2)' }}>
+              <svg width="20" height="20" fill="none" stroke="#1D9E75" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p style={{ color: '#9ca3af', fontSize: 11, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase', margin: 0 }}>
+                Ubicación verificada
+              </p>
+              <p style={{ color: '#fff', fontSize: 13, fontWeight: '600', margin: '2px 0 0', wordBreak: 'break-word' }}>
+                {currentAddress}
+              </p>
+            </div>
+            <button
+              onClick={requestNewLocation}
+              className="px-3 py-2 rounded-lg text-xs font-semibold flex-shrink-0 cursor-pointer transition-all"
+              style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.3)', color: '#60a5fa' }}
+            >
+              Cambiar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {locationStatus === 'error' && (
+        <div className="px-5 pt-4 pb-0">
+          <div 
+            className="flex items-center gap-3 p-4 rounded-xl"
+            style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)' }}
+          >
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(239, 68, 68, 0.2)' }}>
+              <svg width="20" height="20" fill="none" stroke="#ef4444" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p style={{ color: '#ef4444', fontSize: 13, fontWeight: '600', margin: 0 }}>
+                Sin ubicación
+              </p>
+              <p style={{ color: '#9ca3af', fontSize: 12, margin: '2px 0 0' }}>
+                No se pudo verificar tu ubicación
+              </p>
+            </div>
+            <button
+              onClick={requestNewLocation}
+              className="px-3 py-2 rounded-lg text-xs font-semibold flex-shrink-0 cursor-pointer transition-all"
+              style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.3)', color: '#60a5fa' }}
+            >
+              Reintentar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {locationStatus === 'none' && (
+        <div className="px-5 pt-4 pb-0">
+          <div 
+            className="flex items-center gap-3 p-4 rounded-xl"
+            style={{ backgroundColor: '#1a1f2e', border: '1px solid #2a3040' }}
+          >
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(107, 114, 128, 0.2)' }}>
+              <svg width="20" height="20" fill="none" stroke="#9ca3af" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p style={{ color: '#9ca3af', fontSize: 13, fontWeight: '600', margin: 0 }}>
+                Sin ubicación
+              </p>
+              <p style={{ color: '#6b7280', fontSize: 12, margin: '2px 0 0' }}>
+                No se marcó ubicación
+              </p>
+            </div>
+            <button
+              onClick={requestNewLocation}
+              className="px-3 py-2 rounded-lg text-xs font-semibold flex-shrink-0 cursor-pointer transition-all"
+              style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.3)', color: '#60a5fa' }}
+            >
+              Agregar GPS
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="flex-1 px-5 pt-5 pb-6 w-full max-w-2xl mx-auto">

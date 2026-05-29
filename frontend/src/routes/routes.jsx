@@ -12,6 +12,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 // Conductor
 import Escanear from '../screens/Escanear';
 import Confirmar from '../screens/Confirmar';
+import UbicarAuto from '../screens/UbicarAuto';
 import Pagar from '../screens/Pagar';
 import Ticket from '../screens/Ticket';
 import { InicioApp } from '../pages/InicioApp';
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
     {
         path: '/confirmar',
         element: <ConductorApp><Confirmar /></ConductorApp>,
+    },
+    {
+        path: '/ubicar',
+        element: <ConductorApp><UbicarAuto /></ConductorApp>,
     },
     {
         path: '/pagar',
