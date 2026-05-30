@@ -46,7 +46,12 @@ export default function Ticket() {
       if (saved) {
         const data = JSON.parse(saved)
         updateParkingData(data)
-        sessionStorage.removeItem('parkingData') // limpiar después de usar
+        sessionStorage.removeItem('parkingData')
+        if (mpStatus === 'approved') {
+          const vehiculos = JSON.parse(localStorage.getItem('sem_vehiculos') || '[]')
+          vehiculos.unshift({ patente: data.patente, zona: data.cuadra, fecha: new Date().toISOString() })
+          localStorage.setItem('sem_vehiculos', JSON.stringify(vehiculos.slice(0, 10)))
+        }
       }
     }
   }, [mpStatus, mpPaymentId])

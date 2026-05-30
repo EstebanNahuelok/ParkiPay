@@ -15,6 +15,10 @@ import Confirmar from '../screens/Confirmar';
 import UbicarAuto from '../screens/UbicarAuto';
 import Pagar from '../screens/Pagar';
 import Ticket from '../screens/Ticket';
+import Inicio from '../screens/Inicio';
+import MapaZonas from '../screens/MapaZonas';
+import Vehiculos from '../screens/Vehiculos';
+import Historial from '../screens/Historial';
 import { InicioApp } from '../pages/InicioApp';
 import { AuthAdmin } from '../pages/AuthAdmin';
 import { DashboardAdmin } from '../pages/DashboardAdmin';
@@ -54,6 +58,22 @@ const router = createBrowserRouter([
     {
         path: '/ticket',
         element: <ConductorApp><Ticket /></ConductorApp>,
+    },
+    {
+        path: '/inicio',
+        element: <ConductorApp><Inicio /></ConductorApp>,
+    },
+    {
+        path: '/mapa',
+        element: <ConductorApp><MapaZonas /></ConductorApp>,
+    },
+    {
+        path: '/vehiculos',
+        element: <ConductorApp><Vehiculos /></ConductorApp>,
+    },
+    {
+        path: '/historial',
+        element: <ConductorApp><Historial /></ConductorApp>,
     },
 
     //Municpalidad Admin

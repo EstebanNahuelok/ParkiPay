@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Html5Qrcode } from 'html5-qrcode'
 import { useParking } from '../context/ParkingContext'
 import {ButtonRegresar} from '../components/ButtonRegresar'
+import BottomNav from '../components/BottomNav'
 
 export default function Escanear() {
   const navigate = useNavigate()
@@ -204,43 +205,35 @@ export default function Escanear() {
           </svg>
           Ingresar patente manualmente
         </button>
+        <button
+          onClick={() => navigate('/mapa')}
+          style={{
+            width: '100%',
+            marginTop: 10,
+            padding: '14px',
+            borderRadius: 14,
+            border: '1px solid #2a3040',
+            backgroundColor: 'transparent',
+            color: '#9ca3af',
+            fontSize: 15,
+            fontWeight: '600',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            cursor: 'pointer',
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+            <line x1="8" y1="2" x2="8" y2="18" />
+            <line x1="16" y1="6" x2="16" y2="22" />
+          </svg>
+          Ver mapa de zonas
+        </button>
       </div>
 
-      {/* Bottom navigation */}
-      <div
-        style={{
-          backgroundColor: '#0d1117',
-          borderTop: '1px solid #2a3040',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          padding: '8px 0 calc(16px + env(safe-area-inset-bottom, 0px))',
-        }}
-      >
-        {[
-          { icon: HomeIcon, label: 'Inicio', active: false },
-          { icon: ScanIcon, label: 'Escanear', active: true },
-          { icon: CarIcon, label: 'Vehículos', active: false },
-          { icon: HistoryIcon, label: 'Historial', active: false },
-        ].map(({ icon: Icon, label, active }) => (
-          <button
-            key={label}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 4,
-              background: 'none',
-              border: 'none',
-              color: active ? '#1D9E75' : '#6b7280',
-              cursor: 'pointer',
-              padding: '4px 0',
-            }}
-          >
-            <Icon active={active} />
-            <span style={{ fontSize: 11, fontWeight: active ? '600' : '400' }}>{label}</span>
-          </button>
-        ))}
-      </div>
+      <BottomNav active="escanear" />
 
       {/* Manual entry modal */}
       {showModal && (
@@ -328,47 +321,3 @@ export default function Escanear() {
   )
 }
 
-function HomeIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M3 12L12 3l9 9" />
-      <path d="M9 21V12h6v9" />
-      <path d="M3 12v9h18V12" />
-    </svg>
-  )
-}
-
-function ScanIcon({ active }) {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <rect x="3" y="3" width="6" height="6" rx="1" />
-      <rect x="15" y="3" width="6" height="6" rx="1" />
-      <rect x="3" y="15" width="6" height="6" rx="1" />
-      <rect x="15" y="15" width="3" height="3" rx="0.5" fill={active ? '#1D9E75' : 'none'} />
-      <rect x="20" y="15" width="1" height="1" />
-      <rect x="15" y="20" width="1" height="1" />
-      <rect x="20" y="20" width="1" height="1" />
-    </svg>
-  )
-}
-
-function CarIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M5 17H3v-5l2-5h14l2 5v5h-2" />
-      <circle cx="7.5" cy="17.5" r="1.5" />
-      <circle cx="16.5" cy="17.5" r="1.5" />
-      <path d="M5 12h14" />
-    </svg>
-  )
-}
-
-function HistoryIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M3 3v5h5" />
-      <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8" />
-      <path d="M12 7v5l4 2" />
-    </svg>
-  )
-}

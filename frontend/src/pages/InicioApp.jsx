@@ -99,7 +99,7 @@ export  function InicioApp() {
 
           {/* Conductor */}
           <button
-            onClick={() => navigate('/escanear')}
+            onClick={() => navigate('/inicio')}
             style={{
               width: '100%',
               padding: '18px 20px',
