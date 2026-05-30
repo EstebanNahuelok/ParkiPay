@@ -44,26 +44,18 @@ export  function InicioApp() {
           background: 'transparent',
         }}
       >
-        {/* Logo / Icon */}
-        <div
+        {/* Logo Municipalidad de Salta */}
+        <img
+          src="/logo-salta.png"
+          alt="Salta Ciudad"
           style={{
-            width: 80,
-            height: 80,
-            borderRadius: 24,
-            backgroundColor: '#131820',
-            border: '1px solid #1e2535',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            width: 90,
+            height: 90,
+            borderRadius: '50%',
+            objectFit: 'cover',
             marginBottom: 24,
-            boxShadow: '0 0 40px rgba(29,158,117,0.15)',
           }}
-        >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" strokeWidth="1.6">
-            <rect x="2" y="4" width="20" height="16" rx="3" />
-            <path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M10 13h.01M14 13h.01M18 13h.01M8 17h8" />
-          </svg>
-        </div>
+        />
 
         {/* Title */}
         <h1

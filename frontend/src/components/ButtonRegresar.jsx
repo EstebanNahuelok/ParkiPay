@@ -5,7 +5,7 @@ export function ButtonRegresar() {
 
   return (
     <button
-      onClick={() => navigate(-1)}
+      onClick={() => navigate('/')}
       style={{
         display: 'flex',
         alignItems: 'center',

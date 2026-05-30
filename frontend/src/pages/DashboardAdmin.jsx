@@ -206,17 +206,30 @@ export function DashboardAdmin() {
                         Nueva Alerta
                     </button>
                     <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                        {[{ icon: 'settings', label: 'Ajustes' }, { icon: 'logout', label: 'Cerrar Sesión' }].map(({ icon, label }) => (
-                            <button key={label} style={{
+                        <button style={{
+                            display: 'flex', alignItems: 'center', gap: 12, padding: '8px 16px',
+                            borderRadius: 8, border: 'none', backgroundColor: 'transparent',
+                            color: '#bccac1', cursor: 'pointer', fontSize: 12,
+                            fontFamily: 'JetBrains Mono, monospace', textAlign: 'left', width: '100%',
+                        }}>
+                            <span className="material-symbols-outlined" style={{ fontSize: 20 }}>settings</span>
+                            Ajustes
+                        </button>
+                        <button
+                            onClick={() => {
+                                localStorage.removeItem('admin_token')
+                                navigate('/admin')
+                            }}
+                            style={{
                                 display: 'flex', alignItems: 'center', gap: 12, padding: '8px 16px',
                                 borderRadius: 8, border: 'none', backgroundColor: 'transparent',
                                 color: '#bccac1', cursor: 'pointer', fontSize: 12,
                                 fontFamily: 'JetBrains Mono, monospace', textAlign: 'left', width: '100%',
-                            }}>
-                                <span className="material-symbols-outlined" style={{ fontSize: 20 }}>{icon}</span>
-                                {label}
-                            </button>
-                        ))}
+                            }}
+                        >
+                            <span className="material-symbols-outlined" style={{ fontSize: 20 }}>logout</span>
+                            Cerrar Sesión
+                        </button>
                     </div>
                 </div>
             </aside>
