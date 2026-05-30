@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import BottomNav from '../components/BottomNav'
+import { ButtonRegresar } from '../components/ButtonRegresar'
 
 export default function Inicio() {
   const navigate = useNavigate()
@@ -23,6 +24,7 @@ export default function Inicio() {
           zIndex: 2,
         }}
       >
+        <ButtonRegresar to="/" />
         {/* Header */}
         <div
           style={{

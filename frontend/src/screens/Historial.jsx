@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BottomNav from '../components/BottomNav'
+import { ButtonRegresar } from '../components/ButtonRegresar'
 
 export default function Historial() {
   const navigate = useNavigate()
@@ -46,6 +47,7 @@ export default function Historial() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#0d1117' }}>
+      <ButtonRegresar to="/inicio" />
       {/* Header */}
       <div
         style={{

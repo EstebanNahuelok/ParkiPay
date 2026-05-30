@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 
-export function ButtonRegresar() {
+export function ButtonRegresar({ to = '/' }) {
   const navigate = useNavigate()
 
   return (
     <button
-      onClick={() => navigate('/')}
+      onClick={() => navigate(to)}
       style={{
         display: 'flex',
         alignItems: 'center',
