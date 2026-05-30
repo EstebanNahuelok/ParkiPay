@@ -19,6 +19,7 @@ import { InicioApp } from '../pages/InicioApp';
 import { AuthAdmin } from '../pages/AuthAdmin';
 import { DashboardAdmin } from '../pages/DashboardAdmin';
 import { PermisionariosAdmin } from '../pages/PermisionariosAdmin';
+import { MapaEnVivoAdmin } from '../pages/MapaEnVivoAdmin';
 
 function ConductorApp({ children }) {
     return (
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
     {
         path:"/admin/usuarios",
         element:<PermisionariosAdmin/>
+    },
+    {
+        path:"/admin/mapa",
+        element:<MapaEnVivoAdmin/>
     },
 
     // ── Permisionario (app del inspector/cobrador) ──
