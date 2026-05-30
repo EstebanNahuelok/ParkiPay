@@ -158,6 +158,58 @@ export  function InicioApp() {
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
+           {/* Municipalidad Admin */}
+          <button
+            onClick={() => navigate('/admin')}
+            style={{
+              width: '100%',
+              padding: '18px 20px',
+              borderRadius: 14,
+              border: '1px solid #1e2535',
+              backgroundColor: '#131820',
+              color: '#fff',
+              fontSize: 16,
+              fontWeight: '700',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              transition: 'border-color 0.15s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.borderColor = '#1D9E75')}
+            onMouseLeave={e => (e.currentTarget.style.borderColor = '#1e2535')}
+          >
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 10,
+                backgroundColor: '#1a2535',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" strokeWidth="1.8">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                <path d="M16 11l1.5 1.5L20 10" />
+              </svg>
+            </div>
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ fontSize: 16, fontWeight: '700' }}>Municipalidad</div>
+              <div style={{ fontSize: 12, fontWeight: '400', color: 'rgba(255,255,255,0.45)', marginTop: 2 }}>
+                Inspector · Gestión de zonas
+              </div>
+            </div>
+            <svg
+              style={{ marginLeft: 'auto', opacity: 0.4 }}
+              width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
 
           {/* Permisionario */}
           <button

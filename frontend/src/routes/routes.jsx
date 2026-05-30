@@ -16,6 +16,9 @@ import UbicarAuto from '../screens/UbicarAuto';
 import Pagar from '../screens/Pagar';
 import Ticket from '../screens/Ticket';
 import { InicioApp } from '../pages/InicioApp';
+import { AuthAdmin } from '../pages/AuthAdmin';
+import { DashboardAdmin } from '../pages/DashboardAdmin';
+import { PermisionariosAdmin } from '../pages/PermisionariosAdmin';
 
 function ConductorApp({ children }) {
     return (
@@ -50,6 +53,21 @@ const router = createBrowserRouter([
     {
         path: '/ticket',
         element: <ConductorApp><Ticket /></ConductorApp>,
+    },
+
+    //Municpalidad Admin
+    {
+        path:'/admin',
+        element:<AuthAdmin/>
+
+    },
+    {
+        path:"/admin/dashboard",
+        element:<DashboardAdmin/>
+    },
+    {
+        path:"/admin/usuarios",
+        element:<PermisionariosAdmin/>
     },
 
     // ── Permisionario (app del inspector/cobrador) ──
