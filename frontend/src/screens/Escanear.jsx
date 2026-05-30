@@ -13,6 +13,10 @@ export default function Escanear() {
   const [patenteInput, setPatenteInput] = useState('')
   const [patenteError, setPatenteError] = useState(false)
   const [scanError, setScanError] = useState(false)
+  const [qrError, setQrError] = useState(null)
+
+  const formatZona = (z) =>
+    z.toLowerCase().split('-').map((w, i) => (w === 'y' && i > 0) ? w : w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 
   useEffect(() => {
     const qr = new Html5Qrcode('qr-reader')
@@ -24,10 +28,18 @@ export default function Escanear() {
           { facingMode: 'environment' },
           { fps: 10, qrbox: { width: 240, height: 240 } },
           (decodedText) => {
-            scannerStartedRef.current = false
-            qr.stop().catch(() => {})
-            updateParkingData({ patente: decodedText.toUpperCase(), cuadra: 'Alberdi y Mitre' })
-            navigate('/confirmar')
+            if (decodedText.startsWith('SEM-SALTA')) {
+              const parts = decodedText.split('|')
+              const zona = parts[1].split(':')[1].toLowerCase()
+              const zonaId = parts[2].split(':')[1].toLowerCase()
+              const cuadra = formatZona(zona)
+              scannerStartedRef.current = false
+              qr.stop().catch(() => {})
+              updateParkingData({ zona, zonaId, cuadra, patente: '' })
+              navigate('/confirmar')
+            } else {
+              setQrError('QR inválido. Escaneá el código de la cuadra.')
+            }
           },
           () => {}
         )
@@ -143,6 +155,15 @@ export default function Escanear() {
         >
           Apuntá la cámara al QR de la cuadra
         </p>
+        {qrError && (
+          <p
+            className="relative z-10 mt-3 text-center px-8"
+            style={{ color: '#ef4444', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            {qrError}
+          </p>
+        )}
       </div>
 
       {/* Bottom sheet with manual entry button */}

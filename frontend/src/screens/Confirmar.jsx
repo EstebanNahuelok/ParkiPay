@@ -5,7 +5,7 @@ import { useParking } from '../context/ParkingContext'
 export default function Confirmar() {
   const navigate = useNavigate()
   const { parkingData, updateParkingData, getTotal, getTotalConDescuento, TARIFA } = useParking()
-  const { patente, vehiculo, horas } = parkingData
+  const { patente, vehiculo, horas, zona } = parkingData
   const [patenteError, setPatenteError] = useState(false)
 
   const setHoras = (h) => updateParkingData({ horas: Math.min(8, Math.max(1, h)) })
@@ -47,6 +47,14 @@ export default function Confirmar() {
 
       {/* Content */}
       <div className="flex-1 px-5 pt-7 pb-6 w-full max-w-2xl mx-auto">
+        {zona && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 14 }}>
+            <span style={{ fontSize: 16 }}>📍</span>
+            <span style={{ color: '#1D9E75', fontSize: 16, fontWeight: '600' }}>
+              {zona.toLowerCase().split('-').map((w, i) => (w === 'y' && i > 0) ? w : w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+            </span>
+          </div>
+        )}
         <h1 style={{ color: '#fff', fontSize: 26, fontWeight: '700', margin: '0 0 4px' }}>
           Confirmar datos
         </h1>
